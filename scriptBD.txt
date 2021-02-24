@@ -1,0 +1,178 @@
+USE [master]
+GO
+/****** Object:  Database [desafio-prog]    Script Date: 24/02/2021 16:17:14 ******/
+CREATE DATABASE [desafio-prog]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'desafio-prog', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.SQLEXPRESS\MSSQL\DATA\desafio-prog.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'desafio-prog_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.SQLEXPRESS\MSSQL\DATA\desafio-prog_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT
+GO
+ALTER DATABASE [desafio-prog] SET COMPATIBILITY_LEVEL = 150
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [desafio-prog].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [desafio-prog] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [desafio-prog] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [desafio-prog] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [desafio-prog] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [desafio-prog] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [desafio-prog] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [desafio-prog] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [desafio-prog] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [desafio-prog] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [desafio-prog] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [desafio-prog] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [desafio-prog] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [desafio-prog] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [desafio-prog] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [desafio-prog] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [desafio-prog] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [desafio-prog] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [desafio-prog] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [desafio-prog] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [desafio-prog] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [desafio-prog] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [desafio-prog] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [desafio-prog] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [desafio-prog] SET  MULTI_USER 
+GO
+ALTER DATABASE [desafio-prog] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [desafio-prog] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [desafio-prog] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [desafio-prog] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [desafio-prog] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [desafio-prog] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+ALTER DATABASE [desafio-prog] SET QUERY_STORE = OFF
+GO
+USE [desafio-prog]
+GO
+/****** Object:  Table [dbo].[cafes]    Script Date: 24/02/2021 16:17:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[cafes](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[nome] [varchar](250) NOT NULL,
+	[lotacao] [int] NOT NULL,
+ CONSTRAINT [PK_cafes] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[etapas]    Script Date: 24/02/2021 16:17:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[etapas](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[nome] [varchar](50) NOT NULL,
+	[situacao] [bit] NOT NULL,
+ CONSTRAINT [PK_etapas] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[participante]    Script Date: 24/02/2021 16:17:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[participante](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[nome] [varchar](250) NOT NULL,
+	[sobrenome] [varchar](250) NOT NULL,
+	[salaEtapa1] [int] NOT NULL,
+	[salaEtapa2] [int] NOT NULL,
+	[cafeEtapa1] [int] NOT NULL,
+	[cafeEtapa2] [int] NOT NULL,
+ CONSTRAINT [PK_participante] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[salas]    Script Date: 24/02/2021 16:17:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[salas](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[nome] [varchar](250) NOT NULL,
+	[lotacao] [int] NOT NULL,
+ CONSTRAINT [PK_salas] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[etapas] ON 
+GO
+INSERT [dbo].[etapas] ([id], [nome], [situacao]) VALUES (1, N'Etapa 1', 1)
+GO
+INSERT [dbo].[etapas] ([id], [nome], [situacao]) VALUES (2, N'Etapa 2', 0)
+GO
+SET IDENTITY_INSERT [dbo].[etapas] OFF
+GO
+ALTER TABLE [dbo].[participante]  WITH CHECK ADD  CONSTRAINT [FK_participante_cafe1] FOREIGN KEY([cafeEtapa1])
+REFERENCES [dbo].[cafes] ([id])
+GO
+ALTER TABLE [dbo].[participante] CHECK CONSTRAINT [FK_participante_cafe1]
+GO
+ALTER TABLE [dbo].[participante]  WITH CHECK ADD  CONSTRAINT [FK_participante_cafe2] FOREIGN KEY([cafeEtapa2])
+REFERENCES [dbo].[cafes] ([id])
+GO
+ALTER TABLE [dbo].[participante] CHECK CONSTRAINT [FK_participante_cafe2]
+GO
+ALTER TABLE [dbo].[participante]  WITH CHECK ADD  CONSTRAINT [FK_participante_sala1] FOREIGN KEY([salaEtapa1])
+REFERENCES [dbo].[salas] ([id])
+GO
+ALTER TABLE [dbo].[participante] CHECK CONSTRAINT [FK_participante_sala1]
+GO
+ALTER TABLE [dbo].[participante]  WITH CHECK ADD  CONSTRAINT [FK_participante_sala2] FOREIGN KEY([salaEtapa2])
+REFERENCES [dbo].[salas] ([id])
+GO
+ALTER TABLE [dbo].[participante] CHECK CONSTRAINT [FK_participante_sala2]
+GO
+USE [master]
+GO
+ALTER DATABASE [desafio-prog] SET  READ_WRITE 
+GO
